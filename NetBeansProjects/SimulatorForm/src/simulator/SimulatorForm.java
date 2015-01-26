@@ -257,7 +257,7 @@ public class SimulatorForm extends javax.swing.JFrame {
             }
         });
     }
-    
+     
     private final int max;
     boolean endit = false;
     // Variables declaration - do not modify//GEN-BEGIN:variables
