@@ -2,6 +2,7 @@ package simulator;
 
 import java.awt.MouseInfo;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 
 /*
@@ -44,6 +45,8 @@ public class SimulatorForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         nextButton = new javax.swing.JButton();
         previousButton = new javax.swing.JButton();
+        playButton = new javax.swing.JButton();
+        stopButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("2D Simulator");
@@ -109,6 +112,20 @@ public class SimulatorForm extends javax.swing.JFrame {
             }
         });
 
+        playButton.setText("Play");
+        playButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playButtonActionPerformed(evt);
+            }
+        });
+
+        stopButton.setText("Stop");
+        stopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,12 +160,14 @@ public class SimulatorForm extends javax.swing.JFrame {
                                             .addComponent(previousButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(nextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(goButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(goButton, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                        .addComponent(playButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(stopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(74, 74, 74)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pNameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(pNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())))))
         );
         layout.setVerticalGroup(
@@ -173,6 +192,10 @@ public class SimulatorForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(previousButton)
                             .addComponent(nextButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(playButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stopButton)
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -223,6 +246,29 @@ public class SimulatorForm extends javax.swing.JFrame {
         slider.setValue(slider.getValue()-1);
     }//GEN-LAST:event_previousButtonActionPerformed
 
+    private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
+        // TODO add your handling code here:
+        //timer = new Timer();
+        
+        task = new TimerTask() {
+          @Override
+          public void run() {
+              if( slider.getValue() < max )
+                slider.setValue(slider.getValue()+1);
+              else
+                slider.setValue( 0 );
+          }  
+        };
+        
+        timer.scheduleAtFixedRate(task, 0, 20);
+    }//GEN-LAST:event_playButtonActionPerformed
+
+    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+        // TODO add your handling code here:
+        task.cancel();
+        //timer.cancel();
+    }//GEN-LAST:event_stopButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +306,8 @@ public class SimulatorForm extends javax.swing.JFrame {
      
     private final int max;
     boolean endit = false;
+    private Timer timer = new Timer();
+    private TimerTask task;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton goButton;
     private javax.swing.JLabel jLabel1;
@@ -268,8 +316,10 @@ public class SimulatorForm extends javax.swing.JFrame {
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel pNameLabel;
     private simulator.SimulatorPanel panel;
+    private javax.swing.JButton playButton;
     private javax.swing.JButton previousButton;
     private javax.swing.JSlider slider;
+    private javax.swing.JButton stopButton;
     private javax.swing.JTextField textField;
     private javax.swing.JLabel tittle;
     // End of variables declaration//GEN-END:variables

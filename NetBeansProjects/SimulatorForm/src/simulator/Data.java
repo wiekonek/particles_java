@@ -16,10 +16,7 @@ public class Data {
 //
 //        if (returnVal == JFileChooser.APPROVE_OPTION) {
 //            file = fc.getSelectedFile();
-//            //This is where a real application would open the file.
-//            //log.append("Opening: " + file.getName() + "." + newline);
 //        } else {
-//           // log.append("Open command cancelled by user." + newline);
 //            return;
 //        }
 
@@ -76,7 +73,7 @@ public class Data {
                     p.x < particle.positions[n].x + particle.r[n] &&
                     p.y > particle.positions[n].y - particle.r[n] &&
                     p.y < particle.positions[n].y + particle.r[n] )
-                ret = particle.name + " " + particle.positions[n].x + " " + particle.positions[n].y + " " + particle.r[n] + " " + particle.m[n];
+                ret = particle.ID + " " + particle.name + " " + particle.positions[n].x + " " + particle.positions[n].y + " " + particle.r[n] + " " + particle.m[n];
         }
         return ret;
     }
@@ -112,8 +109,6 @@ public class Data {
             itterations[i++] = itteration.replaceFirst("\\nk[\\S\\s]*", "");
         }
         
-        System.out.println(itterations[9]);
-        System.out.println(itt);
         particle_list = new Particle[points.length];
         
         for(String point : points) {
@@ -126,7 +121,7 @@ public class Data {
                     for(String line : itteration.split("\n")) 
                         if(line.contains(point + "\t")) {
                             r[i] = Double.parseDouble(line.split("\t")[4])*50;
-                            m[i] = Double.parseDouble(line.split("\t")[5])*50;
+                            m[i] = Double.parseDouble(line.split("\t")[5]);
                             ppoints[i++] = new Point((int)((Double.parseDouble(line.split("\t")[2]))*50), (int)((Double.parseDouble(line.split("\t")[3]))*50));
                         }
                 } else {
