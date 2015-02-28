@@ -19,6 +19,7 @@ public class Data {
 //        } else {
 //            return;
 //        }
+//        asdaasdasd
 
         File file = new File(file_name);
         FileInputStream input = null;
